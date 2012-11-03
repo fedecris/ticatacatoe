@@ -1,16 +1,18 @@
 package ar.info.unlp.ticatacatoe;
 
 import networkdcq.NetworkStartup;
+import networkdcq.discovery.HostDiscovery;
 import networkdcq.util.Logger;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.LightingColorFilter;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -37,7 +39,6 @@ public class TicaTacaToeActivity extends Activity {
         setContentView(R.layout.main);
         
         // Full screen settings
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         PowerManager powerManager = (PowerManager)getBaseContext().getSystemService(Context.POWER_SERVICE); 
         wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "My Lock"); 
@@ -49,11 +50,10 @@ public class TicaTacaToeActivity extends Activity {
 
 
         try {
-        	NetworkStartup.configureStartup(new Consumer(this), new Producer());
-//        	NetworkStartup.doStartup();
-        	NetworkStartup.getCommunication().startService();
-        	NetworkStartup.getDiscovery().startDiscovery();
-
+        	NetworkStartup.configureStartup(new Consumer(this), null);
+        	NetworkStartup.doStartup(true, true, false);
+//        	NetworkStartup.getCommunication().startService();
+//        	NetworkStartup.getDiscovery().startDiscovery();
         }
         catch (Exception e) {
         	Logger.e(e.getMessage());
@@ -63,6 +63,15 @@ public class TicaTacaToeActivity extends Activity {
         cleanBoard();
     }
 
+    @Override
+    protected void onPause() {
+    	super.onPause();
+    	System.exit(0);
+    }
+    
+    /**
+     * Reset board
+     */
     protected void cleanBoard() { 
     	((Button)findViewById(R.id.button1)).setText(CURRENT_PLAYER_TYPE);
     	((Button)findViewById(R.id.button2)).setText(CURRENT_PLAYER_TYPE);
@@ -78,6 +87,15 @@ public class TicaTacaToeActivity extends Activity {
     }
     
     protected void initButtons() {
+    	((Button)findViewById(R.id.button1)).getBackground().setColorFilter(new LightingColorFilter(0x00AAAAAA, 0x000000FF));
+    	((Button)findViewById(R.id.button2)).getBackground().setColorFilter(new LightingColorFilter(0x00AAAAAA, 0x000000FF));
+    	((Button)findViewById(R.id.button3)).getBackground().setColorFilter(new LightingColorFilter(0x00AAAAAA, 0x000000FF));
+    	((Button)findViewById(R.id.button4)).getBackground().setColorFilter(new LightingColorFilter(0x00AAAAAA, 0x000000FF));
+    	((Button)findViewById(R.id.button5)).getBackground().setColorFilter(new LightingColorFilter(0x00AAAAAA, 0x000000FF));
+    	((Button)findViewById(R.id.button6)).getBackground().setColorFilter(new LightingColorFilter(0x00AAAAAA, 0x000000FF));
+    	((Button)findViewById(R.id.button7)).getBackground().setColorFilter(new LightingColorFilter(0x00AAAAAA, 0x000000FF));
+    	((Button)findViewById(R.id.button8)).getBackground().setColorFilter(new LightingColorFilter(0x00AAAAAA, 0x000000FF));
+    	((Button)findViewById(R.id.button9)).getBackground().setColorFilter(new LightingColorFilter(0x00AAAAAA, 0x000000FF));
     	// button1
 		((Button)findViewById(R.id.button1)).setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -134,7 +152,9 @@ public class TicaTacaToeActivity extends Activity {
 		});
     }
 
-
+    /**
+     * Action when the user clicks a button
+     */
     protected void sendButton(Button aButton, int number) {
     	// Only if blank and my turn
     	if (CURRENT_GAME_STATE == R.string.your_turn && getString(R.string.empty_cell).equals(aButton.getText())) {
@@ -145,21 +165,22 @@ public class TicaTacaToeActivity extends Activity {
     		Data data = new Data();
     		data.action = Data.ACTION_SET_CELL;
     		data.position = number;
-    		NetworkStartup.getCommunication().sendMessage(NetworkStartup.getDiscovery().otherHosts.getValueList().get(0).getHostIP(), data);
+    		NetworkStartup.getCommunication().sendMessage(HostDiscovery.otherHosts.getValueList().get(0).getHostIP(), data);
     		// now its the other player turn
     		CURRENT_GAME_STATE = R.string.other_turn;
     		
     		// did I win?
-    		if (winCombination(CURRENT_PLAYER_TYPE)) {
+    		if (winCombination(CURRENT_PLAYER_TYPE))
     			CURRENT_GAME_STATE = R.string.you_win;
-    		}
     		
     		TextView title = (TextView)findViewById(R.id.title);
     		title.setText(CURRENT_GAME_STATE);
     	}
     }
     
-    
+    /**
+     * Check for the possible win combinations
+     */
     public boolean winCombination(int playerType) {
     	return 	(GAME_BOARD[0] == playerType && GAME_BOARD[1] == playerType && GAME_BOARD[2] == playerType) ||
     			(GAME_BOARD[3] == playerType && GAME_BOARD[4] == playerType && GAME_BOARD[5] == playerType) ||

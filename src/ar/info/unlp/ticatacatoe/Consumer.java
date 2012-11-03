@@ -98,7 +98,9 @@ public class Consumer implements NetworkApplicationDataConsumer {
 
 	}
 		
-	
+	/**
+	 * Sets the received information to the local buttons 
+	 */
 	public class ButtonManager extends Thread {
 		int position;
 		Activity owner;

@@ -3,7 +3,7 @@
 
     <string name="hello">Welcome!</string>
     <string name="app_name">TicaTacaToe</string>
-	<string name="empty_cell">-</string>
+	<string name="empty_cell">.</string>
 	<string name="X">X</string>
 	<string name="O">O</string> 
 	

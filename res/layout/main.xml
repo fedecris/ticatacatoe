@@ -3,13 +3,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
+
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF00" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -17,27 +18,36 @@
         android:layout_height="wrap_content"
         android:layout_weight=".30"
         >
-
+
         <Button
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight=".33"
             android:text="@string/empty_cell"
-            android:layout_weight=".33" />
-
+            android:textColor="#FFFFAA00"
+            android:textSize="80dp"
+            android:typeface="monospace" />
+
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight=".33"
             android:text="@string/empty_cell"
-            android:layout_weight=".33" />
-
+            android:textColor="#FFFFAA00"
+            android:textSize="80dp"
+            android:typeface="monospace" />
+
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight=".33"
             android:text="@string/empty_cell"
-            android:layout_weight=".33" />
+            android:textColor="#FFFFAA00"
+            android:textSize="80dp"
+            android:typeface="monospace" />
 
     </LinearLayout>
 
@@ -46,27 +56,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight=".33" >
-
+
         <Button
             android:id="@+id/button4"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight=".33"
             android:text="@string/empty_cell"
-            android:layout_weight=".33" />
-
+            android:textColor="#FFFFAA00"
+            android:textSize="80dp"
+            android:typeface="monospace" />
+
         <Button
             android:id="@+id/button5"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight=".33"
             android:text="@string/empty_cell"
-            android:layout_weight=".33" />
-
+            android:textColor="#FFFFAA00"
+            android:textSize="80dp"
+            android:typeface="monospace" />
+
         <Button
             android:id="@+id/button6"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight=".33"
             android:text="@string/empty_cell"
-            android:layout_weight=".33" />
+            android:textColor="#FFFFAA00"
+            android:textSize="80dp"
+            android:typeface="monospace" />
 
     </LinearLayout>
 
@@ -75,27 +94,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight=".33" >
-
+
         <Button
             android:id="@+id/button7"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight=".33"
             android:text="@string/empty_cell"
-            android:layout_weight=".33" />
-
+            android:textColor="#FFFFAA00"
+            android:textSize="80dp"
+            android:typeface="monospace" />
+
         <Button
             android:id="@+id/button8"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight=".33"
             android:text="@string/empty_cell"
-            android:layout_weight=".33" />
-
+            android:textColor="#FFFFAA00"
+            android:textSize="80dp"
+            android:typeface="monospace" />
+
         <Button
             android:id="@+id/button9"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight=".33"
             android:text="@string/empty_cell"
-            android:layout_weight=".33" />
+            android:textColor="#FFFFAA00"
+            android:textSize="80dp"
+            android:typeface="monospace" />
 
     </LinearLayout>
     
