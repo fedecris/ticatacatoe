@@ -48,6 +48,7 @@ public class Consumer implements NetworkApplicationDataConsumer {
 		TicaTacaToeActivity.CURRENT_GAME_STATE = R.string.waiting;
         owner.runOnUiThread(new Runnable() {
             public void run() {
+            	((Button)owner.findViewById(R.id.restartButton)).setEnabled(false);
         		TextView title = (TextView)owner.findViewById(R.id.title);
         		title.setText(R.string.waiting);           }
         });
@@ -63,12 +64,20 @@ public class Consumer implements NetworkApplicationDataConsumer {
 				TicaTacaToeActivity.CURRENT_GAME_STATE = R.string.other_turn;
 				TicaTacaToeActivity.CURRENT_PLAYER_TYPE = R.string.O;
 				TicaTacaToeActivity.CURRENT_OTHER_PLAYER_TYPE = R.string.X;
+				TicaTacaToeActivity.CURRENT_FIRST = R.string.other_turn;
 			}
 			else {
 				TicaTacaToeActivity.CURRENT_GAME_STATE = R.string.your_turn;
 				TicaTacaToeActivity.CURRENT_PLAYER_TYPE = R.string.X;
 				TicaTacaToeActivity.CURRENT_OTHER_PLAYER_TYPE = R.string.O;
+				TicaTacaToeActivity.CURRENT_FIRST = R.string.your_turn;
 			}
+			owner.runOnUiThread(new Runnable() {
+		    	public void run() {
+		    		owner.initButtons();
+		    		owner.cleanBoard();
+		    	}
+			});
 		}
 		// Action received!
 		else if (data.action == Data.ACTION_SET_CELL ) {
@@ -79,10 +88,34 @@ public class Consumer implements NetworkApplicationDataConsumer {
 			// Did I loose?
     		if (owner.winCombination(TicaTacaToeActivity.CURRENT_OTHER_PLAYER_TYPE)) {
     			TicaTacaToeActivity.CURRENT_GAME_STATE = R.string.you_loose;
+    			owner.runOnUiThread(new Runnable() {
+    		    	public void run() {
+    		        	((Button)owner.findViewById(R.id.restartButton)).setEnabled(true);
+    		    	}
+    			});           	
     		}
-			
+			// Did I loose?
+    		else if (owner.tieCombination()) {
+    			TicaTacaToeActivity.CURRENT_GAME_STATE = R.string.a_tie;
+    			owner.runOnUiThread(new Runnable() {
+    		    	public void run() {
+    		        	((Button)owner.findViewById(R.id.restartButton)).setEnabled(true);
+    		    	}
+    			});           	
+    		}
+    		
 	        owner.runOnUiThread(manager);			
 		}
+		// Restart received!
+		if (data.action == Data.ACTION_RESTART) {
+			owner.runOnUiThread(new Runnable() {
+		    	public void run() {
+		    		owner.restartAction(false);
+		    	}
+			});
+			
+		}
+		
 		// Update current game state
         owner.runOnUiThread(new Runnable() {
             public void run() {
