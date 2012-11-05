@@ -4,8 +4,16 @@ import networkdcq.NetworkApplicationData;
 
 public class Data extends NetworkApplicationData {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4493422119694521819L;
+	
+	/** Starting action */
 	public static final int ACTION_WHO_STARTS	= 0;
+	/** Set cell action */
 	public static final int ACTION_SET_CELL 	= 1;
+	/** Restart action */
 	public static final int ACTION_RESTART 		= 2;
 	
 	/** Used to know which starts the game */
