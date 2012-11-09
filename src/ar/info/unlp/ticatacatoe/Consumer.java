@@ -38,7 +38,7 @@ public class Consumer implements NetworkApplicationDataConsumer {
 		data.action = Data.ACTION_WHO_STARTS;
 		data.startingTime = System.nanoTime();
 		myStartingTime = data.startingTime;
-		NetworkStartup.getCommunication().sendMessage(aHost.getHostIP(), data);
+		NetworkStartup.getCommunication().sendMessage(aHost, data);
 		Logger.i("Who starts?");
 	}
 

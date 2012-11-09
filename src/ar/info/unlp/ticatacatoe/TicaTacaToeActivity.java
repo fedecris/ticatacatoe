@@ -159,7 +159,7 @@ public class TicaTacaToeActivity extends Activity {
     		Data data = new Data();
     		data.action = Data.ACTION_SET_CELL;
     		data.position = number;
-    		NetworkStartup.getCommunication().sendMessage(HostDiscovery.otherHosts.getValueList().get(0).getHostIP(), data);
+    		NetworkStartup.getCommunication().sendMessage(HostDiscovery.otherHosts.getValueList().get(0), data);
     		// now its the other player turn
     		CURRENT_GAME_STATE = R.string.other_turn;
     		
@@ -184,7 +184,7 @@ public class TicaTacaToeActivity extends Activity {
     		// notify the other user
     		Data data = new Data();
     		data.action = Data.ACTION_RESTART;
-    		NetworkStartup.getCommunication().sendMessage(HostDiscovery.otherHosts.getValueList().get(0).getHostIP(), data);
+    		NetworkStartup.getCommunication().sendMessage(HostDiscovery.otherHosts.getValueList().get(0), data);
         }
         initButtons();
         cleanBoard();
