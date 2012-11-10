@@ -3,7 +3,7 @@ package ar.info.unlp.ticatacatoe;
 import networkdcq.Host;
 import networkdcq.NetworkApplicationData;
 import networkdcq.NetworkApplicationDataConsumer;
-import networkdcq.NetworkStartup;
+import networkdcq.NetworkDCQ;
 import networkdcq.discovery.HostDiscovery;
 import networkdcq.util.Logger;
 import android.app.Activity;
@@ -20,9 +20,9 @@ public class Consumer implements NetworkApplicationDataConsumer {
 		this.owner = owner;
 	}
 	
-	@Override
+
 	public synchronized void newHost(Host aHost) {
-		NetworkStartup.getCommunication().connectToServerHost(aHost);
+		NetworkDCQ.getCommunication().connectToServerHost(aHost);
 		owner.runOnUiThread(new Runnable() {
             public void run() {
         		TextView title = (TextView)owner.findViewById(R.id.title);
@@ -38,12 +38,12 @@ public class Consumer implements NetworkApplicationDataConsumer {
 		data.action = Data.ACTION_WHO_STARTS;
 		data.startingTime = System.nanoTime();
 		myStartingTime = data.startingTime;
-		NetworkStartup.getCommunication().sendMessage(aHost, data);
+		NetworkDCQ.getCommunication().sendMessage(aHost, data);
 		Logger.i("Who starts?");
 	}
 
 
-	@Override
+
 	public synchronized void byeHost(Host aHost) {
 		TicaTacaToeActivity.CURRENT_GAME_STATE = R.string.waiting;
         owner.runOnUiThread(new Runnable() {
@@ -54,7 +54,6 @@ public class Consumer implements NetworkApplicationDataConsumer {
         });
 	}
 
-	@Override
 	public synchronized void newData(NetworkApplicationData receivedData) {
 		Data data = (Data)receivedData;
 		Logger.i("New Data! " + data.action);
