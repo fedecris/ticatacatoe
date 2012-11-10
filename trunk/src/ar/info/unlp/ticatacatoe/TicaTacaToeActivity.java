@@ -1,6 +1,6 @@
 package ar.info.unlp.ticatacatoe;
 
-import networkdcq.NetworkStartup;
+import networkdcq.NetworkDCQ;
 import networkdcq.discovery.HostDiscovery;
 import networkdcq.util.Logger;
 import android.app.Activity;
@@ -55,8 +55,8 @@ public class TicaTacaToeActivity extends Activity {
 
 
         try {
-        	NetworkStartup.configureStartup(new Consumer(this), null);
-        	NetworkStartup.doStartup(true, true, false);
+        	NetworkDCQ.configureStartup(new Consumer(this), null);
+        	NetworkDCQ.doStartup(true, true, false);
         }
         catch (Exception e) {
         	Logger.e(e.getMessage());
@@ -159,7 +159,7 @@ public class TicaTacaToeActivity extends Activity {
     		Data data = new Data();
     		data.action = Data.ACTION_SET_CELL;
     		data.position = number;
-    		NetworkStartup.getCommunication().sendMessage(HostDiscovery.otherHosts.getValueList().get(0), data);
+    		NetworkDCQ.getCommunication().sendMessage(HostDiscovery.otherHosts.getValueList().get(0), data);
     		// now its the other player turn
     		CURRENT_GAME_STATE = R.string.other_turn;
     		
@@ -184,7 +184,7 @@ public class TicaTacaToeActivity extends Activity {
     		// notify the other user
     		Data data = new Data();
     		data.action = Data.ACTION_RESTART;
-    		NetworkStartup.getCommunication().sendMessage(HostDiscovery.otherHosts.getValueList().get(0), data);
+    		NetworkDCQ.getCommunication().sendMessage(HostDiscovery.otherHosts.getValueList().get(0), data);
         }
         initButtons();
         cleanBoard();
