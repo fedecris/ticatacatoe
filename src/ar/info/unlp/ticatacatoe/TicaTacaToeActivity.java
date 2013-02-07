@@ -55,7 +55,7 @@ public class TicaTacaToeActivity extends Activity {
 
 
         try {
-        	NetworkDCQ.configureStartup(new Consumer(this), null);
+        	NetworkDCQ.configureStartup(new Consumer(this), null, new Data());
         	NetworkDCQ.doStartup(true, true, false);
         }
         catch (Exception e) {
