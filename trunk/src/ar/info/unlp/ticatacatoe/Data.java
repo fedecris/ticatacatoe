@@ -3,6 +3,7 @@ package ar.info.unlp.ticatacatoe;
 import networkdcq.Host;
 import networkdcq.NetworkApplicationData;
 import networkdcq.discovery.HostDiscovery;
+import networkdcq.util.Logger;
 import networkdcq.util.NetworkSerializable;
 
 public class Data extends NetworkApplicationData implements NetworkSerializable {
@@ -38,10 +39,11 @@ public class Data extends NetworkApplicationData implements NetworkSerializable 
 	}
 
 	public Object networkDeserialize(String data) {
-		// recupero valores
+		Logger.i("Deserializing:" + data);
+		// Retrieve values
 		String cadenas[] = data.split(""+NetworkSerializable.VARIABLE_MEMBER_SEPARATOR);
 			
-		// creo la instancia Data y la devuelvo
+		// Create and return new Data instance
 		Data appData = new Data();
 		Host host = new Host(cadenas[0], cadenas[1]=="true");
 		appData.sourceHost = host;
